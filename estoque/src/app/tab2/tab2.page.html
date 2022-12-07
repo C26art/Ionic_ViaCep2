@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Produtos </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Lista de Produtos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-grid class="ion-grid-padding">
+      <ion-row>
+        <ion-col sizeXs="2">#</ion-col>
+        <ion-col sizeXs="7">Nome</ion-col>
+        <ion-col class="hidden-xs-col">Quantidade</ion-col>
+        <ion-col class="hidden-xs-col">Preço de Compra</ion-col>
+        <ion-col class="hidden-xs-col">Preço de Venda</ion-col>
+        <ion-col class="hidden-xs-col">Fornecedor</ion-col>
+        <ion-col class="hidden-xs-col">Razão Social</ion-col>
+        <ion-col class="hidden-xs-col">CNPJ</ion-col>
+        <ion-col class="hidden-xs-col">Telefone</ion-col>
+
+        <ion-col sizeXs="3" class="show-xs-col hidden-xl-col hidden lg-col"
+          >Detalhes</ion-col
+        >
+      </ion-row>
+      <ion-row *ngFor="let produto of produtos">
+        <ion-col sizeXs="2">{{ produto.id }} </ion-col>
+        <ion-col sizeXs="7">{{ produto.nome }} </ion-col>
+        <ion-col class="hidden-xs-col">{{ produto.quantidade }}</ion-col>
+        <ion-col class="hidden-xs-col">{{ produto.valorCompra }}</ion-col>
+        <ion-col class="hidden-xs-col">{{ produto.valorVenda }}</ion-col>
+
+        <ion-col class="hidden-xs-col">{{ produto.fornecedor }}</ion-col>
+        <ion-col class="hidden-xs-col">{{ produto.razaoSocial }}</ion-col>
+        <ion-col class="hidden-xs-col">{{ produto.cnpj }}</ion-col>
+        <ion-col class="hidden-xs-col">{{ produto.telefone }}</ion-col>
+        <ion-col
+          sizeXs="3"
+          class="show-xs-col hidden-md-col hidden-xl-col hidden-lg-col"
+          ><ion-button
+            class="btn-modal"
+            fill="clear"
+            (click)="openModal(produto.id)"
+            >Show</ion-button
+          ></ion-col
+        >
+      </ion-row>
+    </ion-grid>
+    <div class="ion-modal-content"></div>
+  </ion-content>
+</ion-content>
