@@ -1,5 +1,3 @@
-import { EnderecoModel } from "./endereco.model";
-
 export interface Produto {
   id: number;
   nome: string;
@@ -10,5 +8,8 @@ export interface Produto {
   razaoSocial:string,
   cnpj:string,
   telefone:string,
-  endereco:EnderecoModel,
+  logradouro:string,
+  bairro:string,
+  cidade:string,
+  cep:string,
 }

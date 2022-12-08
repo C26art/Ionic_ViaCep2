@@ -16,63 +16,6 @@
       "bairro": "User example",
       "localidade": "User example",
       "uf": "User example"
-    },
-    {
-      "nome": "manga",
-      "quantidade": 2,
-      "valorCompra": "3",
-      "valorVenda": "3",
-      "fornecedor": "hort",
-      "razaoSocial": "123",
-      "cnpj": "56",
-      "telefone": "22222222222",
-      "endereco": {
-        "cep": "22031030",
-        "logradouro": "Rua Silva Castro",
-        "complemento": "188",
-        "bairro": "Copacabana",
-        "localidade": "Rio de Janeiro",
-        "uf": "RJ"
-      },
-      "id": 2
-    },
-    {
-      "nome": "morango",
-      "quantidade": 3,
-      "valorCompra": "23",
-      "valorVenda": "34",
-      "fornecedor": "Mundial",
-      "razaoSocial": "234",
-      "cnpj": "34555",
-      "telefone": "22222222222",
-      "endereco": {
-        "cep": "22031000",
-        "logradouro": "Avenida Nossa Senhora de Copacabana",
-        "complemento": "188",
-        "bairro": "Copacabana",
-        "localidade": "Rio de Janeiro",
-        "uf": "RJ"
-      },
-      "id": 3
-    },
-    {
-      "nome": "",
-      "quantidade": "",
-      "valorCompra": "",
-      "valorVenda": "",
-      "fornecedor": "",
-      "razaoSocial": "",
-      "cnpj": "",
-      "telefone": "",
-      "endereco": {
-        "cep": "24220000",
-        "logradouro": "Praia Canto do Rio",
-        "complemento": "",
-        "bairro": "Icaraí",
-        "localidade": "Niterói",
-        "uf": "RJ"
-      },
-      "id": 4
     }
   ]
 }

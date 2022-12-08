@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EnderecoModel } from '../model/endereco.model';
 
+import { EnderecoModel } from '../model/endereco.model';
 import { Produto } from '../model/produto.model';
+import { CorreiosService } from '../services/correios.service';
 import { ProdutoService } from '../services/produto.service';
+
 
 @Component({
   selector: 'app-tab1',
@@ -17,7 +19,8 @@ export class Tab1Page {
   editable:boolean = false;
 
   constructor(private formBuilder: FormBuilder, private produtoService: ProdutoService, private router: Router,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute,
+    private correiosService: CorreiosService) {}
 
     ngOnInit(): void {
       this.produtoForm = this.formBuilder.group({
@@ -25,7 +28,7 @@ export class Tab1Page {
           '',
           [
             Validators.required,
-            Validators.minLength(4),
+            Validators.minLength(2),
             Validators.maxLength(100)
           ]
         ],
@@ -79,14 +82,38 @@ export class Tab1Page {
             Validators.maxLength(15)
           ]
         ],
-        endereco:this.formBuilder.group({
-          cep:['',[Validators.required,Validators.pattern(/^\d{5}\-?\d{3}$/)]],
-          logradouro:['',[Validators.required]],
-          complemento:['',],
-          bairro:['',[Validators.required]],
-          localidade:['',[Validators.required]],
-          uf:['',[Validators.required]]
-        }),
+        logradouro: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(100)
+          ]
+        ],
+        bairro: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(1),
+            Validators.maxLength(100)
+          ]
+        ],
+        cidade: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(100)
+          ]
+        ],
+        cep: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.maxLength(10)
+          ]
+        ],
       });
 
       this.route.paramMap.subscribe(params => {
@@ -124,53 +151,51 @@ export class Tab1Page {
         valorCompra: this.produto.valorCompra,
         valorVenda: this.produto.valorVenda,
         fornecedor: this.produto.fornecedor,
+        logradouro: this.produto.logradouro,
+        bairro: this.produto.bairro,
+        cidade: this.produto.cidade,
+        cep: this.produto.cep,
       });
     }
-    editar() {
-      const produtoId = this.produto.id;
-    }
 
-    verifyCEP(){
-      const cep = this.produtoForm.get('endereco')?.getRawValue() as EnderecoModel;
-      console.log(cep)
-      const receivedCEP = this.produtoService.getCEP(cep.cep);
-      receivedCEP.subscribe({
-        next:(cep)=>{
-          this.refresForm(cep)
+    loadEndereco() {
+      const cep:string = this.produtoForm.get('cep')?.value;
+      this.correiosService.getEndereco(cep).subscribe({
+        next: (result:EnderecoModel) => {
+          this.produtoForm.patchValue({
+            logradouro: result.logradouro,
+            bairro: result.bairro,
+            cidade: result.localidade,
+            cep: result.cep
+          });
         },
-        error: (err)=>{
-          console.log(err)
+        error: (err) => {
+          console.error(err)
         }
-      })
-      console.log(receivedCEP)
+      });
     }
 
-    refresForm(endereco:EnderecoModel){
-      this.produtoForm.get("endereco")?.patchValue({
-        logradouro: endereco.logradouro,
-        bairro: endereco.bairro,
-        localidade:endereco.localidade,
-        uf: endereco.uf
-      })
+    editProduto() {
+      const editProduto = this.produtoForm.getRawValue() as Produto;
+      editProduto.id = this.produto.id;
+
+      this.produtoService.updateProduto(editProduto).subscribe({
+        next: () => {
+          this.router.navigateByUrl('/tabs/tab2');
+          this.produtoForm.reset();
+        },
+        error: (err) => {
+          console.error(err);
+          this.produtoForm.reset();
+        }
+      });
+    }
+
+
+
+  valordeVendas(valorCompra: number, porcentagemBruto: number) {
+    const porcentagem = porcentagemBruto / 100 + 1;
+    return valorCompra * porcentagem;
   }
 
-
-
-
-
-
-  get nome(){return this.produtoForm.get("nome")!}
-  get quantidade(){return this.produtoForm.get("quantidade")!}
-  get valorCompra(){return this.produtoForm.get("valorCompra")!}
-  get valorVenda(){return this.produtoForm.get("valorVenda")!}
-  get fornecedor(){return this.produtoForm.get("fornecedor")!}
-  get razaoSocial(){return this.produtoForm.get("razaoSocial")!}
-  get cnpj(){return this.produtoForm.get("cnpj")!}
-  get telefone(){return this.produtoForm.get("telefone")!}
-  get cep(){return this.produtoForm.get("endereco")?.get("cep")!}
-  get logradouro(){return this.produtoForm.get("endereco")?.get("logradouro")!}
-  get complemento(){return this.produtoForm.get("endereco")?.get("complemento")!}
-  get bairro(){return this.produtoForm.get("endereco")?.get("bairro")!}
-  get localidade(){return this.produtoForm.get("endereco")?.get("localidade")!}
-  get uf(){return this.produtoForm.get("endereco")?.get("uf")!}
 }

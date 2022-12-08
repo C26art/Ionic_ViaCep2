@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { EnderecoModel } from '../model/endereco.model';
 import { Produto } from '../model/produto.model';
+
 
 const API_URL = 'http://localhost:3000';
 const HTTP_OPTIONS = {
@@ -11,7 +11,6 @@ const HTTP_OPTIONS = {
     { 'Content-Type': 'application/json;charset=utf-8' }
   )
 };
-
 
 @Injectable({
   providedIn: 'root'
@@ -42,10 +41,4 @@ export class ProdutoService {
   deleteProduto(id: number): Observable<any> {
     return this.http.delete(`${API_URL}/produto/${id}`);
   }
-
-  getCEP(cepNumber:string):Observable<EnderecoModel>{
-    const cep = this.http.get<EnderecoModel>(`http://viacep.com.br/ws/` + cepNumber + `/json/`);
-    return cep;
-  }
-
 }
