@@ -17,6 +17,11 @@ export class Tab1Page {
   produtoForm!: FormGroup;
   produto!: Produto;
   editable:boolean = false;
+  porcentagem!: number;
+  porcentagens!:number;
+  valorCompra!: number;
+  resultado!: number;
+
 
   constructor(private formBuilder: FormBuilder, private produtoService: ProdutoService, private router: Router,
     private route: ActivatedRoute,
@@ -41,6 +46,12 @@ export class Tab1Page {
           ]
         ],
         valorCompra: [
+          '',
+          [
+            Validators.required,
+          ]
+        ],
+        porcentagem: [
           '',
           [
             Validators.required,
@@ -149,6 +160,7 @@ export class Tab1Page {
         nome: this.produto.nome,
         quantidade: this.produto.quantidade,
         valorCompra: this.produto.valorCompra,
+        porcentagem:this.produto.porcentagem,
         valorVenda: this.produto.valorVenda,
         fornecedor: this.produto.fornecedor,
         logradouro: this.produto.logradouro,
@@ -190,12 +202,16 @@ export class Tab1Page {
         }
       });
     }
+    calc(): void {
+      let valorCompra = this.produtoForm.get('valorCompra')?.value;
+      let porcentagem = this.produtoForm.get('porcentagem')?.value;
 
+      let calcVenda = valorCompra + (valorCompra * (porcentagem / 100));
 
+      this.produtoForm.patchValue({
+        valorVenda: calcVenda
+      })
+    }
 
-  valordeVendas(valorCompra: number, porcentagemBruto: number) {
-    const porcentagem = porcentagemBruto / 100 + 1;
-    return valorCompra * porcentagem;
-  }
-
+   
 }

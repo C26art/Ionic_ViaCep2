@@ -16,6 +16,52 @@
       "bairro": "User example",
       "localidade": "User example",
       "uf": "User example"
+    },
+    {
+      "nome": "",
+      "quantidade": "",
+      "valorCompra": "23",
+      "valorVenda": "12",
+      "fornecedor": "",
+      "razaoSocial": "",
+      "cnpj": "",
+      "telefone": "",
+      "logradouro": "",
+      "bairro": "",
+      "cidade": "",
+      "cep": "",
+      "id": 2
+    },
+    {
+      "nome": "",
+      "quantidade": "",
+      "valorCompra": "23",
+      "valorVenda": "12",
+      "fornecedor": "",
+      "razaoSocial": "",
+      "cnpj": "",
+      "telefone": "",
+      "logradouro": "",
+      "bairro": "",
+      "cidade": "",
+      "cep": "",
+      "id": 3
+    },
+    {
+      "nome": "morango",
+      "quantidade": 3,
+      "valorCompra": 100,
+      "porcentagem": 10,
+      "valorVenda": 110,
+      "fornecedor": "hort",
+      "razaoSocial": "1233",
+      "cnpj": "122334",
+      "telefone": "99999999999",
+      "logradouro": "Travessa Jaú",
+      "bairro": "Copacabana",
+      "cidade": "Rio de Janeiro",
+      "cep": "22030-050",
+      "id": 4
     }
   ]
 }

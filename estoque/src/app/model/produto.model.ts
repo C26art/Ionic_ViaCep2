@@ -3,6 +3,7 @@ export interface Produto {
   nome: string;
   quantidade: number;
   valorCompra: number;
+  porcentagem:number;
   valorVenda: number;
   fornecedor: string;
   razaoSocial:string,
